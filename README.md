@@ -85,3 +85,14 @@ The installer registers `A0F00409` / Layout Id `0F00`, refuses identifier collis
 Normal and Shift key positions follow [SIL Global’s published Hanifi Rohingya layout](https://github.com/keymanapp/keyboards/blob/master/release/h/hanifi_rohingya/source/hanifi_rohingya.kmn), with its [MIT attribution](keyboard/LICENSE.md) retained. That mapping is data only; this native implementation does not use its keyboard engine. The upstream source is preserved in `keyboard/hanifi_rohingya.reference.kmn` for comparison. “Published SIL layout” identifies the source; this project does not claim government certification. The Noto font is distributed under its [SIL Open Font License](assets/OFL.txt).
 
 The Unicode repertoire is [U+10D00–U+10D3F](https://www.unicode.org/charts/PDF/U10D00.pdf). Native table structure and scan-code conventions were checked against the Windows SDK `kbd.h` and Microsoft's [keyboard layout sample](https://github.com/microsoft/Windows-driver-samples/tree/main/input/layout/kbdus). Windows input-list registration follows [Get-WinUserLanguageList](https://learn.microsoft.com/en-us/powershell/module/international/get-winuserlanguagelist) and [keyboard registry documentation](https://learn.microsoft.com/en-us/windows/win32/intl/using-registry-string-redirection).
+
+## Author & Developer
+
+<p align="left">
+  <img src="assets/author.jpg" alt="Ahkter Husin" width="120" style="border-radius: 50%;" />
+</p>
+
+* **Developer**: **Ahkter Husin**
+* **GitHub**: [@arakaneserohingya](https://github.com/arakaneserohingya)
+* **Website**: [rohingyahub.org](https://rohingyahub.org)
+

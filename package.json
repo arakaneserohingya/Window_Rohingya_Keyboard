@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "description": "Hanifi Rohingya Unicode keyboard for Windows",
+  "author": {
+    "name": "Ahkter Husin",
+    "url": "https://github.com/arakaneserohingya"
+  },
+  "homepage": "https://rohingyahub.org",
   "scripts": {
     "generate": "python3 build.py",
     "build": "python3 build.py --compile",

@@ -3,12 +3,25 @@
 <title>Hanifi Rohingya Keyboard</title>
 <style>
 @font-face{font-family:Rohingya;src:url('assets/NotoSansHanifiRohingya-Regular.ttf')}*{box-sizing:border-box}body{margin:0;background:#f3f6f5;color:#153c37;font:16px system-ui}main{max-width:1060px;margin:auto;padding:40px 20px}h1{font-size:34px;margin-bottom:10px}p{line-height:1.6}textarea{width:100%;min-height:220px;padding:22px;border:1px solid #8ca9a0;border-radius:12px;background:white;font:32px Rohingya, sans-serif;line-height:1.8}button,a{touch-action:manipulation}button{cursor:pointer;border:1px solid #abc5bb;border-radius:8px;background:white;color:#153c37;padding:12px;font:inherit}button:hover{background:#d9eee5}button:focus-visible,a:focus-visible{outline:3px solid #ad6900}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.row{display:flex;gap:5px;margin:5px 0}.key{flex:1;min-width:0;padding:7px 1px}.key small{display:block;font:12px system-ui;color:#587168}.glyph{display:block;font:27px Rohingya,sans-serif;min-height:44px}.keyboard{overflow:auto;padding:10px;background:#e5eeea;border-radius:12px}.rows{min-width:640px}a{color:#006852}#status{min-height:24px}.active{background:#b8e4d0}@media print{.toolbar{display:none}body{background:white}}
+.suggestions{display:flex;gap:8px;flex-wrap:wrap;min-height:58px;margin:12px 0}.suggestions button{font:24px Rohingya,sans-serif}
 </style>
 <main><h1>Hanifi Rohingya Keyboard</h1><p>Type in the box or click the keys. Use Shift for tone marks and punctuation. Text flows right to left.</p>
 <textarea id="editor" dir="rtl" lang="rhg-Rohg" aria-label="Rohingya typing area" placeholder="𐴀 𐴁 𐴂" spellcheck="false"></textarea>
-<div class="toolbar"><button id="shift" aria-pressed="false">Shift: off</button><button id="mode" aria-pressed="true">Rohingya: on</button><button id="copy">Copy text</button><button id="download">Save text</button><button id="backspace">Backspace</button></div>
+<div id="suggestions" class="suggestions" role="group" aria-label="Word suggestions"></div>
+<div class="toolbar"><button id="prediction-toggle" aria-pressed="true">Suggestions: on</button><button id="shift" aria-pressed="false">Shift: off</button><button id="mode" aria-pressed="true">Rohingya: on</button><button id="copy">Copy text</button><button id="download">Save text</button><button id="backspace">Backspace</button></div>
 <div class="keyboard"><div class="rows" id="keys"></div></div><p id="status" role="status"></p>
 <p>V = vowel A · Shift+H/T/A = tone signs · Shift+` = gemination · Shift+Space = Sakin. Ctrl, Alt, and Command shortcuts remain available.</p>
 <p><a href="dist/Hanifi-Rohingya-Windows-x64.zip">Download native Windows keyboard</a></p>
-<p>This page is an offline practice editor. Extract the Windows ZIP and run Install.cmd to type in Windows applications. Switch keyboards with Win+Space. Select “Noto Sans Hanifi Rohingya” in your document and enable right-to-left paragraph direction.</p></main>
-<script src="layout.js"></script><script src="preview.js"></script></html>
+<p>This page is an offline practice editor. Extract the Windows ZIP and run Install.cmd to type in Windows applications. Switch keyboards with Win+Space. Select “Noto Sans Hanifi Rohingya” in your document and enable right-to-left paragraph direction.</p>
+<div class="author-card" style="display:flex;align-items:center;gap:16px;margin-top:32px;padding:16px 20px;background:#e5eeea;border-radius:12px;border:1px solid #abc5bb">
+  <img src="assets/author.jpg" alt="Ahkter Husin" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid #006852">
+  <div>
+    <div style="font-weight:bold;font-size:17px;color:#153c37">Developed by Ahkter Husin</div>
+    <div style="margin-top:4px;font-size:14px;color:#587168">
+      <a href="https://github.com/arakaneserohingya" target="_blank" rel="noopener" style="color:#006852;text-decoration:none;font-weight:600">GitHub: @arakaneserohingya</a> &bull; 
+      <a href="https://rohingyahub.org" target="_blank" rel="noopener" style="color:#006852;text-decoration:none;font-weight:600">Website: rohingyahub.org</a>
+    </div>
+  </div>
+</div>
+</main>
+<script src="layout.js"></script><script src="preview.js"></script><script src="dictionary/model.js"></script><script src="prediction.js"></script><script src="preview-prediction.js"></script></html>
