@@ -12,21 +12,33 @@ Your own Windows keyboard layout: **no Keyman, no background application, and no
 
 **Target: Windows 10/11 on 64-bit platforms (Intel/AMD x64 and ARM64).** Supports both native PC hardware and Windows 11 running on Apple Silicon VMs (Parallels/VMware) as well as Snapdragon PCs. 32-bit Windows is not supported.
 
-## Install
+## Installation Options
 
+The package provides two installation modes:
+
+### Option 1: Standard Native Keyboard (Recommended)
+Fast, ultra-lightweight Windows kernel keyboard driver (`kbdroh.dll`) with 0% CPU and 0 MB RAM overhead:
 1. Download/copy [`Hanifi-Rohingya-Windows-x64.zip`](dist/Hanifi-Rohingya-Windows-x64.zip) to Windows.
-2. **Extract the entire ZIP.** Open the extracted folder and double-click **Install.cmd** as your normal Windows user.
-3. Approve the Windows administrator prompt for registering the keyboard DLL. The script then enables the keyboard and installs its font for your original user account.
-4. Sign out and back in. Press **Win+Space** and select **Hanifi Rohingya**.
+2. **Extract the entire ZIP.** Open the extracted folder and double-click **`Install.cmd`**.
+3. Approve the Windows administrator prompt. The script registers the DLL, enables the **RHG** language profile, and installs the Noto font.
+4. Sign out and back in. Press **Win+Space** and select **Hanifi Rohingya (RHG)**.
 5. In Word or your editor, select **Noto Sans Hanifi Rohingya** and **right-to-left paragraph direction**.
 
-The custom layout is attached to the English (United States) input-language container for Windows compatibility. Windows may show an **ENG** indicator, but the selected **Hanifi Rohingya** layout outputs Rohingya. Existing language choices and keyboards are retained; English is not replaced. No developer tools are required on the target computer.
+### Option 2: Predictive Keyboard with Word Suggestions (TSF IME)
+Full Windows Text Services Framework IME (`rohime.dll`) providing **live word suggestions & completions** from an 18,200+ Rohingya word dictionary:
+1. Double-click **`Install-Predictive.cmd`**.
+2. Sign out and back in. Press **Win+Space** and select **Hanifi Rohingya Predictive (RHG)**.
+3. As you type, candidate suggestions appear:
+   - Press **F1–F5** or click a suggestion chip to insert the word.
+   - Press **Escape** or keep typing to dismiss.
 
-For another Windows user, run `enable.ps1` in that user's account after machine installation. If your organization blocks unsigned scripts or custom layouts, installation requires its administrator's authorization. This development build is unsigned.
+The layout is registered under the official Rohingya (`rhg-Rohg` / `rhg`) language profile, displaying the **RHG** language indicator and **Hanifi Rohingya** name in the Windows taskbar and <kbd>Win</kbd>+<kbd>Space</kbd> language switcher. Existing language choices and keyboards are retained.
 
 ## Remove
 
-Switch to another keyboard and run **Uninstall.cmd** from the extracted folder. If the DLL is still in use, restart Windows, keep another keyboard selected, and run it again. Each additional user should run `enable.ps1 -Remove` in their own account. The font is retained so existing documents remain readable.
+* **To remove standard layout:** Switch to another keyboard and run **`Uninstall.cmd`**.
+* **To remove predictive layout:** Run **`Uninstall-Predictive.cmd`**.
+* Each additional user should run `enable.ps1 -Remove` in their own account. The font is retained so existing documents remain readable.
 
 ## Layout and practice
 
@@ -48,6 +60,18 @@ The layout exposes 49 Hanifi characters. U+10D1C (letter VA) is not assigned in 
 
 Type in logical reading order, with combining signs following their base; do not reverse stored text. Font shaping, right-to-left paragraph direction, and deletion behavior belong to the application. A native layout cannot force an application's paragraph direction or fix its Unicode handling.
 
+## Repository Structure
+
+- `build.py`: single source of truth for key mappings; generates C tables, preview data, and Windows test expectations.
+- `dictionary_import.py`: decodes `dictionary/main_rhg.dict` and generates `model.json`, `model.js`, and C++ `ime/model.inc`.
+- `dictionary/`: binary dictionary source (`main_rhg.dict`) and web prediction models (`model.json`, `model.js`).
+- `native/`: Windows scan codes, modifiers, key names, ABI definitions (`keyboard.c`, `keyboard_abi.h`, `layout.inc`).
+- `ime/`: Windows Text Services Framework predictive IME (`service.cpp`, `predictor.h`, `keys.inc`, `model.inc`).
+- `windows/`: installation/removal scripts and Windows acceptance tests.
+- `assets/`: icon, author branding, and Noto Sans Hanifi Rohingya font.
+- `preview.html`: interactive offline browser practice editor and virtual keyboard.
+- `dist/Hanifi-Rohingya-Windows-x64.zip`: native package ready to transfer to Windows.
+
 ## Build
 
 Requires Python 3.9+ and [Zig 0.14.1](https://ziglang.org/download/). The cross-platform build uses Zig's C compiler and linker; no Windows SDK is required.
@@ -66,13 +90,6 @@ npm run test:browser
 ```
 
 `BROWSER_EXECUTABLE` can point to an existing Chromium-family browser. To regenerate the mapping without compiling, run `python3 build.py`.
-
-- `build.py`: single source of truth for key mappings; generates C tables, preview data, and Windows test expectations.
-- `native/keyboard.c`: Windows scan codes, modifiers, key names, and exported `KbdLayerDescriptor`.
-- `native/keyboard_abi.h`: minimal 64-bit keyboard ABI declarations with compile-time size/offset assertions.
-- `native/layout.inc`: generated character and UTF-16 ligature tables.
-- `windows/`: installation/removal scripts and Windows acceptance test.
-- `dist/Hanifi-Rohingya-Windows-x64.zip`: native package ready to transfer to Windows.
 
 The DLL uses a minimal entry point that performs no initialization and has no imported runtime functions. Each supplementary Unicode scalar is emitted as a two-unit UTF-16 surrogate pair using Windows' ligature table. Microsoft's [ToUnicode documentation](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-tounicode) explicitly describes supplementary-character output as surrogate pairs.
 
