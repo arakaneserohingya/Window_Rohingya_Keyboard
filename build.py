@@ -13,12 +13,12 @@ ID = 'kbdroh'
 
 def mappings():
     base = dict(zip('ABP,TJ;HQF.DR/ZSCKGLMNW[Y]X\'', map(chr, range(0x10D00, 0x10D1C))))
-    base.update(zip('VIUEO', map(chr, range(0x10D1D, 0x10D22))))
+    base.update(zip('VEUIO', map(chr, range(0x10D1D, 0x10D22))))
     base.update({str(i): chr(0x10D30+i) for i in range(10)})
     base.update({'`': chr(0x10D22), '\\': chr(0x10D23), '-':'-', '=':'=', ' ':' '})
     # SIL explicitly suppresses unused shifted letters. None means no output.
     shifted = {k: None for k in base if k.isalpha()}
-    shifted.update(dict(zip('HTA`', map(chr, range(0x10D24, 0x10D28)))))
+    shifted.update({'Y': chr(0x10D24), 'S': chr(0x10D25), '`': chr(0x10D26), 'W': chr(0x10D27)})
     shifted.update({'L':'؛', ',':'،', '.':'۔', '/':'؟', ' ':chr(0x10D22)})
     shifted.update(dict(zip('1234567890-=[]\\;\'', '!@#$%^&*()_+{}|:"')))
     return {'base':base, 'shift':shifted}

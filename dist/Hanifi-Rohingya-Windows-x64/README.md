@@ -144,9 +144,9 @@ Normal and Shift positions follow the standard published **SIL Hanifi Rohingya**
 ### Vowels
 | Latin Key | Rohingya Vowel | Name | Unicode |
 | :---: | :---: | :---: | :---: |
-| **I** | **𐴞** | I | `U+10D1E` |
+| **E** | **𐴞** | I | `U+10D1E` |
 | **U** | **𐴟** | U | `U+10D1F` |
-| **E** | **𐴠** | E | `U+10D20` |
+| **I** | **𐴠** | E | `U+10D20` |
 | **O** | **𐴡** | O | `U+10D21` |
 
 ### Tone Marks & Modifiers
@@ -154,10 +154,10 @@ Normal and Shift positions follow the standard published **SIL Hanifi Rohingya**
 | :---: | :---: | :---: | :---: |
 | **`** *(backquote)* or **Shift+Space** | **𐴢** | Sakin | Consonant vowel killer |
 | **\\** *(backslash)* | **𐴣** | Naissi | Tone mark |
-| **Shift + H** | **𐴤** | Harbai | High short tone |
-| **Shift + T** | **𐴥** | Tahala | High long tone |
-| **Shift + A** | **𐴦** | Tana | Low falling tone |
-| **Shift + `** | **𐴧** | Tassi | Gemination mark (doubling) |
+| **Shift + Y** | **𐴤** | Harbai | High short tone |
+| **Shift + S** | **𐴥** | Tahala | High long tone |
+| **Shift + `** | **𐴦** | Tana | Low falling tone |
+| **Shift + W** | **𐴧** | Tassi | Gemination mark (doubling) |
 
 ### Digits (Top Row Numbers)
 | Top Key | Rohingya Digit | Value |
