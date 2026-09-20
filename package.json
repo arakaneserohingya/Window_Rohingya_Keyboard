@@ -1,0 +1,15 @@
+{
+  "name": "hanifi-rohingya-windows",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hanifi Rohingya Unicode keyboard for Windows",
+  "scripts": {
+    "generate": "python3 build.py",
+    "build": "python3 build.py --compile",
+    "test": "python3 -m unittest discover -s tests",
+    "test:browser": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0"
+  }
+}

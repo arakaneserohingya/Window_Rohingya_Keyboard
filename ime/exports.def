@@ -1,0 +1,6 @@
+LIBRARY rohime
+EXPORTS
+    DllGetClassObject
+    DllCanUnloadNow
+    DllRegisterServer
+    DllUnregisterServer
