@@ -111,10 +111,18 @@ try {
     }
 
     if (-not [Environment]::Is64BitProcess) { throw 'Run with 64-bit Windows PowerShell.' }
-    $arch = $env:PROCESSOR_ARCHITECTURE
-    if ($arch -ne 'AMD64' -and $arch -ne 'ARM64') {
-        throw 'This package supports 64-bit Windows (x64 and ARM64) only; 32-bit Windows is not supported.'
+    $isArm64 = $false
+    try {
+        $os = Get-CimInstance Win32_OperatingSystem -ErrorAction SilentlyContinue
+        if ($os.OSArchitecture -match 'ARM|AARCH64') { $isArm64 = $true }
+    } catch {}
+    if (-not $isArm64) {
+        if ($env:PROCESSOR_ARCHITECTURE -eq 'ARM64' -or $env:PROCESSOR_ARCHITEW6432 -eq 'ARM64') {
+            $isArm64 = $true
+        }
     }
+    $arch = if ($isArm64) { 'ARM64' } else { 'AMD64' }
+
     $admin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
     if (-not $admin) {
         $tempDir = Join-Path $env:TEMP 'HanifiRohingyaInstall'
@@ -186,11 +194,25 @@ try {
         throw "Expected an x64 Windows DLL on this x64 system, found machine 0x$($peMachineType.ToString('X4'))."
     }
 
-    try {
-        Copy-Item $source $destination -Force
-    } catch {
-        Write-Warning "System32\kbdroh.dll is currently locked; it will take effect on next restart."
+    # Safely install or replace in-use DLL
+    function Install-NativeDll {
+        param([string]$Src, [string]$Dest)
+        try {
+            Copy-Item $Src $Dest -Force -ErrorAction Stop
+        } catch {
+            # In-use DLL: rename the locked file in place so the new binary can be written
+            $backup = "$Dest.old.$([Guid]::NewGuid().ToString('N').Substring(0,8))"
+            try {
+                Move-Item -Path $Dest -Destination $backup -Force -ErrorAction Stop
+                Copy-Item $Src $Dest -Force -ErrorAction Stop
+                Write-Host "Replaced active $(Split-Path $Dest -Leaf) with native $arch version."
+            } catch {
+                Write-Warning "Could not replace $Dest: $_"
+            }
+        }
     }
+
+    Install-NativeDll -Src $source -Dest $destination
     
     New-Item $key -Force | Out-Null
     New-ItemProperty $key -Name 'Layout File' -Value 'kbdroh.dll' -PropertyType String -Force | Out-Null
@@ -198,7 +220,7 @@ try {
     New-ItemProperty $key -Name 'Layout Id' -Value '0F00' -PropertyType String -Force | Out-Null
     New-ItemProperty $key -Name 'RohingyaOwner' -Value $owner -PropertyType String -Force | Out-Null
 
-    Write-Host 'Native Hanifi Rohingya keyboard registered.'
+    Write-Host "Native Hanifi Rohingya keyboard ($arch) registered successfully."
     exit 0
 } catch {
     Write-Error $_ -ErrorAction Continue
