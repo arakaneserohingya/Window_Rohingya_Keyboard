@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" width="100%" height="auto">
+<defs>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Hanifi+Rohingya:wght@500;700&amp;family=Inter:wght@500;700&amp;display=swap");
+    .bg { fill: #f3f6f5; rx: 16px; }
+    .key { fill: #ffffff; stroke: #c8dad3; stroke-width: 1.5; rx: 8px; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.06)); }
+    .key-active { fill: #e0f2eb; stroke: #006852; stroke-width: 2; rx: 8px; }
+    .latin { font-family: "Inter", system-ui, sans-serif; font-size: 13px; font-weight: 600; fill: #587168; }
+    .glyph { font-family: "Noto Sans Hanifi Rohingya", system-ui, sans-serif; font-size: 26px; font-weight: 700; fill: #153c37; text-anchor: middle; }
+    .title { font-family: "Inter", system-ui, sans-serif; font-size: 15px; font-weight: 700; fill: #153c37; }
+    .badge { font-family: "Inter", system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #006852; }
+  </style>
+</defs>
+<rect width="960" height="360" class="bg" />
+<text x="24" y="32" class="title">Hanifi Rohingya Keyboard &bull; Shift Layer (Tone Marks &amp; Punctuation)</text>
+<rect x="820" y="16" width="116" height="24" rx="12" fill="#d9eee5" />
+<text x="878" y="32" class="badge" text-anchor="middle">[ Shift: ON ]</text>
+<rect x="24.0" y="50" width="64.61538461538461" height="56" class="key" />
+<text x="32.0" y="68" class="latin">`</text>
+<text x="56.30769230769231" y="90" class="glyph">𐴧</text>
+<rect x="94.61538461538461" y="50" width="64.61538461538461" height="56" class="key" />
+<text x="102.61538461538461" y="68" class="latin">1</text>
+<text x="126.92307692307692" y="90" class="glyph">!</text>
+<rect x="165.23076923076923" y="50" width="64.61538461538461" height="56" class="key" />
+<text x="173.23076923076923" y="68" class="latin">2</text>
+<text x="197.53846153846155" y="90" class="glyph">@</text>
+<rect x="235.84615384615384" y="50" width="64.61538461538461" height="56" class="key" />
+<text x="243.84615384615384" y="68" class="latin">3</text>
+<text x="268.15384615384613" y="90" class="glyph">#</text>
+<rect x="306.46153846153845" y="50" width="64.61538461538461" height="56" class="key" />
+<text x="314.46153846153845" y="68" class="latin">4</text>
+<text x="338.7692307692308" y="90" class="glyph">$</text>
+<rect x="377.0769230769231" y="50" width="64.61538461538461" height="56" class="key" />
+<text x="385.0769230769231" y="68" class="latin">5</text>
+<text x="409.3846153846154" y="90" class="glyph">%</text>
+<rect x="447.6923076923077" y="50" width="64.61538461538461" height="56" class="key" />
+<text x="455.6923076923077" y="68" class="latin">6</text>
+<text x="480.0" y="90" class="glyph">^</text>
+<rect x="518.3076923076923" y="50" width="64.61538461538461" height="56" class="key" />
+<text x="526.3076923076923" y="68" class="latin">7</text>
+<text x="550.6153846153845" y="90" class="glyph">&</text>
+<rect x="588.9230769230769" y="50" width="64.61538461538461" height="56" class="key" />
+<text x="596.9230769230769" y="68" class="latin">8</text>
+<text x="621.2307692307692" y="90" class="glyph">*</text>
+<rect x="659.5384615384615" y="50" width="64.61538461538461" height="56" class="key" />
+<text x="667.5384615384615" y="68" class="latin">9</text>
+<text x="691.8461538461538" y="90" class="glyph">(</text>
+<rect x="730.1538461538462" y="50" width="64.61538461538461" height="56" class="key" />
+<text x="738.1538461538462" y="68" class="latin">0</text>
+<text x="762.4615384615385" y="90" class="glyph">)</text>
+<rect x="800.7692307692307" y="50" width="64.61538461538461" height="56" class="key" />
+<text x="808.7692307692307" y="68" class="latin">-</text>
+<text x="833.076923076923" y="90" class="glyph">_</text>
+<rect x="871.3846153846154" y="50" width="64.61538461538461" height="56" class="key" />
+<text x="879.3846153846154" y="68" class="latin">=</text>
+<text x="903.6923076923076" y="90" class="glyph">+</text>
+<rect x="24.0" y="112" width="64.61538461538461" height="56" class="key" />
+<text x="32.0" y="130" class="latin">Q</text>
+<rect x="94.61538461538461" y="112" width="64.61538461538461" height="56" class="key" />
+<text x="102.61538461538461" y="130" class="latin">W</text>
+<rect x="165.23076923076923" y="112" width="64.61538461538461" height="56" class="key" />
+<text x="173.23076923076923" y="130" class="latin">E</text>
+<rect x="235.84615384615384" y="112" width="64.61538461538461" height="56" class="key" />
+<text x="243.84615384615384" y="130" class="latin">R</text>
+<rect x="306.46153846153845" y="112" width="64.61538461538461" height="56" class="key" />
+<text x="314.46153846153845" y="130" class="latin">T</text>
+<text x="338.7692307692308" y="152" class="glyph">𐴥</text>
+<rect x="377.0769230769231" y="112" width="64.61538461538461" height="56" class="key" />
+<text x="385.0769230769231" y="130" class="latin">Y</text>
+<rect x="447.6923076923077" y="112" width="64.61538461538461" height="56" class="key" />
+<text x="455.6923076923077" y="130" class="latin">U</text>
+<rect x="518.3076923076923" y="112" width="64.61538461538461" height="56" class="key" />
+<text x="526.3076923076923" y="130" class="latin">I</text>
+<rect x="588.9230769230769" y="112" width="64.61538461538461" height="56" class="key" />
+<text x="596.9230769230769" y="130" class="latin">O</text>
+<rect x="659.5384615384615" y="112" width="64.61538461538461" height="56" class="key" />
+<text x="667.5384615384615" y="130" class="latin">P</text>
+<rect x="730.1538461538462" y="112" width="64.61538461538461" height="56" class="key" />
+<text x="738.1538461538462" y="130" class="latin">[</text>
+<text x="762.4615384615385" y="152" class="glyph">{</text>
+<rect x="800.7692307692307" y="112" width="64.61538461538461" height="56" class="key" />
+<text x="808.7692307692307" y="130" class="latin">]</text>
+<text x="833.076923076923" y="152" class="glyph">}</text>
+<rect x="871.3846153846154" y="112" width="64.61538461538461" height="56" class="key" />
+<text x="879.3846153846154" y="130" class="latin">\</text>
+<text x="903.6923076923076" y="152" class="glyph">|</text>
+<rect x="24.0" y="174" width="77.45454545454545" height="56" class="key" />
+<text x="32.0" y="192" class="latin">A</text>
+<text x="62.72727272727273" y="214" class="glyph">𐴦</text>
+<rect x="107.45454545454545" y="174" width="77.45454545454545" height="56" class="key" />
+<text x="115.45454545454545" y="192" class="latin">S</text>
+<rect x="190.9090909090909" y="174" width="77.45454545454545" height="56" class="key" />
+<text x="198.9090909090909" y="192" class="latin">D</text>
+<rect x="274.3636363636364" y="174" width="77.45454545454545" height="56" class="key" />
+<text x="282.3636363636364" y="192" class="latin">F</text>
+<rect x="357.8181818181818" y="174" width="77.45454545454545" height="56" class="key" />
+<text x="365.8181818181818" y="192" class="latin">G</text>
+<rect x="441.27272727272725" y="174" width="77.45454545454545" height="56" class="key" />
+<text x="449.27272727272725" y="192" class="latin">H</text>
+<text x="480.0" y="214" class="glyph">𐴤</text>
+<rect x="524.7272727272727" y="174" width="77.45454545454545" height="56" class="key" />
+<text x="532.7272727272727" y="192" class="latin">J</text>
+<rect x="608.1818181818181" y="174" width="77.45454545454545" height="56" class="key" />
+<text x="616.1818181818181" y="192" class="latin">K</text>
+<rect x="691.6363636363636" y="174" width="77.45454545454545" height="56" class="key" />
+<text x="699.6363636363636" y="192" class="latin">L</text>
+<text x="730.3636363636364" y="214" class="glyph">؛</text>
+<rect x="775.0909090909091" y="174" width="77.45454545454545" height="56" class="key" />
+<text x="783.0909090909091" y="192" class="latin">;</text>
+<text x="813.8181818181819" y="214" class="glyph">:</text>
+<rect x="858.5454545454545" y="174" width="77.45454545454545" height="56" class="key" />
+<text x="866.5454545454545" y="192" class="latin">'</text>
+<text x="897.2727272727273" y="214" class="glyph">"</text>
+<rect x="24.0" y="236" width="85.8" height="56" class="key" />
+<text x="32.0" y="254" class="latin">Z</text>
+<rect x="115.8" y="236" width="85.8" height="56" class="key" />
+<text x="123.8" y="254" class="latin">X</text>
+<rect x="207.6" y="236" width="85.8" height="56" class="key" />
+<text x="215.6" y="254" class="latin">C</text>
+<rect x="299.4" y="236" width="85.8" height="56" class="key" />
+<text x="307.4" y="254" class="latin">V</text>
+<rect x="391.2" y="236" width="85.8" height="56" class="key" />
+<text x="399.2" y="254" class="latin">B</text>
+<rect x="483.0" y="236" width="85.8" height="56" class="key" />
+<text x="491.0" y="254" class="latin">N</text>
+<rect x="574.8" y="236" width="85.8" height="56" class="key" />
+<text x="582.8" y="254" class="latin">M</text>
+<rect x="666.6" y="236" width="85.8" height="56" class="key" />
+<text x="674.6" y="254" class="latin">,</text>
+<text x="709.5" y="276" class="glyph">،</text>
+<rect x="758.4" y="236" width="85.8" height="56" class="key" />
+<text x="766.4" y="254" class="latin">.</text>
+<text x="801.3" y="276" class="glyph">۔</text>
+<rect x="850.1999999999999" y="236" width="85.8" height="56" class="key" />
+<text x="858.1999999999999" y="254" class="latin">/</text>
+<text x="893.0999999999999" y="276" class="glyph">؟</text>
+<rect x="280.0" y="298" width="400" height="56" class="key" />
+<text x="480.0" y="334" class="glyph" font-size="20">𐴢 (Sakin)</text>
+</svg>

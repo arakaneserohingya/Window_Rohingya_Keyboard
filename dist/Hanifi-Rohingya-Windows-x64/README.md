@@ -92,7 +92,21 @@ To make your text align to the **right side** and flow naturally from **Right to
 
 ---
 
-## ⌨️ Complete Keyboard Layout & Key Mapping
+## ⌨️ Visual Keyboard Layout Preview
+
+### 🔹 Normal / Base Layer (Letters, Vowels & Digits)
+<p align="center">
+  <img src="assets/keyboard_layout.svg" alt="Hanifi Rohingya Keyboard - Normal Base Layer" width="100%" />
+</p>
+
+### 🔸 Shift Layer (Tone Marks, Na-Khonna, Sakin & Punctuation)
+<p align="center">
+  <img src="assets/keyboard_shift_layout.svg" alt="Hanifi Rohingya Keyboard - Shift Layer" width="100%" />
+</p>
+
+---
+
+## 📋 Complete Key Mapping Table
 
 Normal and Shift positions follow the standard published **SIL Hanifi Rohingya** layout:
 
