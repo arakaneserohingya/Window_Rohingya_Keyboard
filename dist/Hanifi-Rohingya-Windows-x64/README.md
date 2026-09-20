@@ -2,126 +2,221 @@
   <img src="assets/icon.png" alt="Hanifi Rohingya Keyboard Logo" width="128" height="128" />
 </p>
 
-<h1 align="center">Hanifi Rohingya — Native Windows Keyboard</h1>
+<h1 align="center">Hanifi Rohingya Keyboard for Windows</h1>
 
 <p align="center">
-  <b>No Keyman &bull; No Background Application &bull; No Runtime Dependency</b>
+  <b>Complete, Native & Standalone Hanifi Rohingya Typing Solution for All Windows Devices</b><br>
+  <i>Windows 11 &bull; Windows 10 &bull; Windows 8 &bull; Windows 7 &bull; 64-bit (x64) &bull; ARM64 (Apple Silicon Mac / Parallels) &bull; 32-bit (x86)</i>
 </p>
 
-Your own Windows keyboard layout: **no Keyman, no background application, and no runtime dependency**. The package contains native `kbdroh.dll` (x64 and ARM64), installation/removal scripts, and the Noto Sans Hanifi Rohingya font.
+---
 
-**Target: Windows 10/11 on 64-bit platforms (Intel/AMD x64 and ARM64).** Supports both native PC hardware and Windows 11 running on Apple Silicon VMs (Parallels/VMware) as well as Snapdragon PCs. 32-bit Windows is not supported.
+## 🌟 Overview
 
-## Installation Options
+This package gives you everything you need to type in the **Hanifi Rohingya** script (`U+10D00–U+10D39`) anywhere on Windows. Whether you are using **Notepad**, **Microsoft Word**, **Google Chrome**, **Microsoft Edge**, **Excel**, **WhatsApp**, or Windows search bars, this keyboard enables full Right-to-Left (RTL) Rohingya typing.
 
-The package provides two installation modes:
+---
 
-### Option 1: Standard Native Keyboard (Recommended)
-Fast, ultra-lightweight Windows kernel keyboard driver (`kbdroh.dll`) with 0% CPU and 0 MB RAM overhead:
-1. Download/copy [`Hanifi-Rohingya-Windows-x64.zip`](dist/Hanifi-Rohingya-Windows-x64.zip) to Windows.
-2. **Extract the entire ZIP.** Open the extracted folder and double-click **`Install.cmd`**.
-3. Approve the Windows administrator prompt. The script registers the DLL, enables the **RHG** language profile, and installs the Noto font.
-4. Sign out and back in. Press **Win+Space** and select **Hanifi Rohingya (RHG)**.
-5. In Word or your editor, select **Noto Sans Hanifi Rohingya** and **right-to-left paragraph direction**.
+## 🚀 3 Easy Ways to Use the Keyboard
 
-### Option 2: Predictive Keyboard with Word Suggestions (TSF IME)
-Full Windows Text Services Framework IME (`rohime.dll`) providing **live word suggestions & completions** from an 18,200+ Rohingya word dictionary:
+Choose the method that works best for you:
+
+### 🟢 Method 1: Instant Standalone App (Easiest & Zero Setup)
+*No installation, no administrator rights, and no restarting required.*
+
+1. Download and extract [`Hanifi-Rohingya-Windows-x64.zip`](dist/Hanifi-Rohingya-Windows-x64.zip).
+2. Inside the folder, simply double-click:
+   - **`RohingyaKeyboard-ARM64.exe`** (If you are on Windows 11 in a Mac Parallels Desktop VM or Snapdragon PC)
+   - **`RohingyaKeyboard.exe`** / **`RohingyaKeyboard-x64.exe`** (If you are on standard 64-bit Intel/AMD Windows)
+   - **`RohingyaKeyboard-x86-32bit.exe`** (If you are on 32-bit Windows)
+3. An **RH** icon will appear in your system tray (bottom right near the clock).
+4. **How to Toggle On / Off**: Press **<kbd>Ctrl</kbd> + <kbd>Shift</kbd>** (or **<kbd>F12</kbd>**) anytime to instantly switch between **Hanifi Rohingya** and **English**.
+5. **Start Automatically on Boot**: Right-click the **RH** tray icon and check **Start with Windows**.
+
+---
+
+### 🔵 Method 2: Native Windows Keyboard Driver (Integrated into Windows Settings)
+*Installs the layout directly into Windows User Settings with the official `RHG` language badge.*
+
+1. Open the extracted folder and double-click **`Install.cmd`**.
+2. Click **Install** on the setup window and approve the administrator prompt.
+3. The installer registers the native kernel driver (`kbdroh.dll`), sets Hanifi Rohingya as your default input method, and installs the **Noto Sans Hanifi Rohingya** font.
+4. Press **<kbd>Win</kbd> + <kbd>Space</kbd>** (or **<kbd>Alt</kbd> + <kbd>Shift</kbd>**) to switch between **Hanifi Rohingya (RHG)** and **English (US)**.
+
+---
+
+### 🟣 Method 3: Predictive Keyboard with Word Suggestions (TSF IME)
+*Provides live word suggestions and auto-completions from an 18,200+ Rohingya word dictionary.*
+
 1. Double-click **`Install-Predictive.cmd`**.
-2. Sign out and back in. Press **Win+Space** and select **Hanifi Rohingya Predictive (RHG)**.
-3. As you type, candidate suggestions appear:
-   - Press **F1–F5** or click a suggestion chip to insert the word.
-   - Press **Escape** or keep typing to dismiss.
+2. Switch to **Hanifi Rohingya Predictive (RHG)** with **<kbd>Win</kbd> + <kbd>Space</kbd>**.
+3. As you type, word suggestions appear:
+   - Press **<kbd>F1</kbd>–<kbd>F5</kbd>** or click a suggestion to insert the word.
+   - Press **<kbd>Escape</kbd>** or keep typing to dismiss suggestions.
 
-The layout is registered under the official Rohingya (`rhg-Rohg` / `rhg`) language profile, displaying the **RHG** language indicator and **Hanifi Rohingya** name in the Windows taskbar and <kbd>Win</kbd>+<kbd>Space</kbd> language switcher. Existing language choices and keyboards are retained.
+---
 
-### 📸 Installation Steps in Pictures
+## 📸 Installation Steps in Pictures
 
 | Step 1: Extract ZIP & Run `Install.cmd` | Step 2: Setup Dialog (Click Install) |
 | :---: | :---: |
 | <img src="assets/installs/1.png" alt="Step 1: Run Install.cmd" width="450" /> | <img src="assets/installs/2.png" alt="Step 2: Welcome Setup Dialog" width="450" /> |
 
-| Step 3: Approve Administrator Prompt | Step 4: Success & Ready to Type |
+| Step 3: Approve Administrator Prompt | Step 4: Installation Complete & Ready |
 | :---: | :---: |
 | <img src="assets/installs/3.png" alt="Step 3: UAC Prompt" width="450" /> | <img src="assets/installs/4.png" alt="Step 4: Installation Complete" width="450" /> |
 
-## Remove
+---
 
-* **To remove standard layout:** Switch to another keyboard and run **`Uninstall.cmd`**.
-* **To remove predictive layout:** Run **`Uninstall-Predictive.cmd`**.
-* Each additional user should run `enable.ps1 -Remove` in their own account. The font is retained so existing documents remain readable.
+## ✍️ How to Type Right-to-Left (RTL) in Notepad & Windows Apps
 
-## Layout and practice
+When you open a brand new document in **Notepad**, Windows sets the default paragraph alignment to **Left-to-Right (LTR)** (like English). 
 
-Open [`preview.html`](preview.html) in the repository or extracted Windows package directly in a browser for offline practice. It includes clickable and physical keys, Shift, copying, and UTF-8 text download. Keep `layout.js`, `preview.js`, and `assets/` alongside it. The preview types only in its text box; the installed native DLL works through Windows input.
+To make your text align to the **right side** and flow naturally from **Right to Left (RTL)**:
 
-| Key | Output |
-| --- | --- |
-| A / B / P | Letter A / BA / PA |
-| V / I / U / E / O | Vowels A / I / U / E / O |
-| Top-row 0–9 | Hanifi Rohingya digits |
-| Backquote or Shift+Space | Sakin |
-| Backslash | Na Khonna |
-| Shift+H / Shift+T / Shift+A | Harbahay / Tahala / Tana |
-| Shift+Backquote | Tassi (gemination) |
-| Shift+comma / period / slash | Arabic comma / full stop / question mark |
-| Shift+L | Arabic semicolon |
+### 1. In Notepad (Fastest Method)
+* Press **<kbd>Right Ctrl</kbd> + <kbd>Right Shift</kbd>** *(the Ctrl and Shift keys located on the **right side** of your keyboard spacebar)*.
+* The cursor will jump to the **right margin** and all text will flow right-to-left.
+* *(To switch back to Left-to-Right, press the **Left Ctrl** + **Left Shift** keys).*
 
-The layout exposes 49 Hanifi characters. U+10D1C (letter VA) is not assigned in the published SIL layout. Unused shifted letters produce no text; shifted numbers produce US punctuation. Caps Lock does not change the output. The number pad retains ASCII digits for numeric entry. Ctrl control characters and ordinary navigation keys are preserved; Alt combinations do not emit Rohingya text.
+### 2. In Notepad (Mouse Method)
+* **Right-click** anywhere inside the blank Notepad text area.
+* Click **Right to left reading order**.
 
-Type in logical reading order, with combining signs following their base; do not reverse stored text. Font shaping, right-to-left paragraph direction, and deletion behavior belong to the application. A native layout cannot force an application's paragraph direction or fix its Unicode handling.
+### 3. In Microsoft Word & WordPad
+* Click the **Right-to-Left Text Direction** icon ( `¶` with an arrow pointing left &larr; ) in the Home toolbar.
+* Or press **<kbd>Ctrl</kbd> + <kbd>R</kbd>** (Right align) or **<kbd>Right Ctrl</kbd> + <kbd>Right Shift</kbd>**.
 
-## Repository Structure
+### 4. In Web Browsers (Chrome / Edge / Firefox)
+* Web input fields with `dir="rtl"` automatically align to the right.
 
-- `build.py`: single source of truth for key mappings; generates C tables, preview data, and Windows test expectations.
-- `dictionary_import.py`: decodes `dictionary/main_rhg.dict` and generates `model.json`, `model.js`, and C++ `ime/model.inc`.
-- `dictionary/`: binary dictionary source (`main_rhg.dict`) and web prediction models (`model.json`, `model.js`).
-- `native/`: Windows scan codes, modifiers, key names, ABI definitions (`keyboard.c`, `keyboard_abi.h`, `layout.inc`).
-- `ime/`: Windows Text Services Framework predictive IME (`service.cpp`, `predictor.h`, `keys.inc`, `model.inc`).
-- `windows/`: installation/removal scripts and Windows acceptance tests.
-- `assets/`: icon, author branding, and Noto Sans Hanifi Rohingya font.
-- `preview.html`: interactive offline browser practice editor and virtual keyboard.
-- `dist/Hanifi-Rohingya-Windows-x64.zip`: native package ready to transfer to Windows.
+---
 
-## Build
+## ⌨️ Complete Keyboard Layout & Key Mapping
 
-Requires Python 3.9+ and [Zig 0.14.1](https://ziglang.org/download/). The cross-platform build uses Zig's C compiler and linker; no Windows SDK is required.
+Normal and Shift positions follow the standard published **SIL Hanifi Rohingya** layout:
 
-```sh
-python3 build.py --compile --zig /path/to/zig
-python3 -m unittest discover -s tests
-```
+### Consonants & Letters
+| Latin Key | Rohingya Character | Name | Unicode |
+| :---: | :---: | :---: | :---: |
+| **A** | **𐴀** | A | `U+10D00` |
+| **B** | **𐴁** | BA | `U+10D01` |
+| **P** | **𐴂** | PA | `U+10D02` |
+| **,** *(comma)* | **𐴃** | TTA | `U+10D03` |
+| **T** | **𐴄** | TA | `U+10D04` |
+| **J** | **𐴅** | JA | `U+10D05` |
+| **;** *(semicolon)*| **𐴆** | CHA | `U+10D06` |
+| **H** | **𐴇** | HA | `U+10D07` |
+| **Q** | **𐴈** | KHA | `U+10D08` |
+| **F** | **𐴉** | FA | `U+10D09` |
+| **.** *(period)* | **𐴊** | DDA | `U+10D0A` |
+| **D** | **𐴋** | DA | `U+10D0B` |
+| **R** | **𐴌** | RA | `U+10D0C` |
+| **/** *(slash)* | **𐴍** | RRA | `U+10D0D` |
+| **Z** | **𐴎** | ZA | `U+10D0E` |
+| **S** | **𐴏** | SA | `U+10D0F` |
+| **C** | **𐴐** | CA | `U+10D10` |
+| **K** | **𐴑** | KA | `U+10D11` |
+| **G** | **𐴒** | GA | `U+10D12` |
+| **L** | **𐴓** | LA | `U+10D13` |
+| **M** | **𐴔** | MA | `U+10D14` |
+| **N** | **𐴕** | NA | `U+10D15` |
+| **W** | **𐴖** | WA | `U+10D16` |
+| **[** | **𐴗** | KINNA WA | `U+10D17` |
+| **Y** | **𐴘** | YA | `U+10D18` |
+| **]** | **𐴙** | KINNA YA | `U+10D19` |
+| **X** | **𐴚** | NGA | `U+10D1A` |
+| **'** *(apostrophe)*| **𐴛** | NYA | `U+10D1B` |
+| **V** | **𐴝** | VA | `U+10D1D` |
 
-Or, with `zig` on PATH, run `npm run build`. Node.js is only used for optional browser tests:
+### Vowels
+| Latin Key | Rohingya Vowel | Name | Unicode |
+| :---: | :---: | :---: | :---: |
+| **I** | **𐴞** | I | `U+10D1E` |
+| **U** | **𐴟** | U | `U+10D1F` |
+| **E** | **𐴠** | E | `U+10D20` |
+| **O** | **𐴡** | O | `U+10D21` |
 
-```sh
-npm ci
-npx playwright install chromium
-npm run test:browser
-```
+### Tone Marks & Modifiers
+| Shortcut Key | Rohingya Sign | Name | Description |
+| :---: | :---: | :---: | :---: |
+| **`** *(backquote)* or **Shift+Space** | **𐴢** | Sakin | Consonant vowel killer |
+| **\\** *(backslash)* | **𐴣** | Naissi | Tone mark |
+| **Shift + H** | **𐴤** | Harbai | High short tone |
+| **Shift + T** | **𐴥** | Tahala | High long tone |
+| **Shift + A** | **𐴦** | Tana | Low falling tone |
+| **Shift + `** | **𐴧** | Tassi | Gemination mark (doubling) |
 
-`BROWSER_EXECUTABLE` can point to an existing Chromium-family browser. To regenerate the mapping without compiling, run `python3 build.py`.
+### Digits (Top Row Numbers)
+| Top Key | Rohingya Digit | Value |
+| :---: | :---: | :---: |
+| **0** | **𐴰** | 0 |
+| **1** | **𐴱** | 1 |
+| **2** | **𐴲** | 2 |
+| **3** | **𐴳** | 3 |
+| **4** | **𐴴** | 4 |
+| **5** | **𐴵** | 5 |
+| **6** | **𐴶** | 6 |
+| **7** | **𐴷** | 7 |
+| **8** | **𐴸** | 8 |
+| **9** | **𐴹** | 9 |
 
-The DLL uses a minimal entry point that performs no initialization and has no imported runtime functions. Each supplementary Unicode scalar is emitted as a two-unit UTF-16 surrogate pair using Windows' ligature table. Microsoft's [ToUnicode documentation](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-tounicode) explicitly describes supplementary-character output as surrogate pairs.
+### Punctuation
+| Shortcut Key | Character | Name |
+| :---: | :---: | :---: |
+| **Shift + ,** | **،** | Arabic Comma |
+| **Shift + .** | **۔** | Arabic Full Stop |
+| **Shift + /** | **؟** | Arabic Question Mark |
+| **Shift + L** | **؛** | Arabic Semicolon |
 
-## Windows verification
+---
 
-After installation, open Windows PowerShell in the extracted folder and run:
+## 🌐 Offline Web Practice Preview
 
-```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\test-windows.ps1
-```
+You can open [`preview.html`](preview.html) in your web browser (Google Chrome, Microsoft Edge, Safari, Firefox) for interactive visual practice:
+- Click the on-screen keys or type on your physical keyboard.
+- Turn word predictions on/off.
+- Copy your typed text or download it as a UTF-8 text file.
 
-This exercises **Windows' actual ToUnicodeEx function** across every generated key/state with Caps Lock both off and on. It is provided for Windows validation and has not been run from this macOS workspace. Then test Word/Notepad/browser input, combining marks, backspace, Ctrl+C/V/Z, navigation, Win+Space switching, restart persistence, and uninstall. Unicode behavior in older applications may vary.
+---
 
-The installer registers `A0F00409` / Layout Id `0F00`, refuses identifier collisions, and will not overwrite a different existing DLL. Removal checks ownership. Installation modifies the machine's keyboard registry and copies the DLL to System32; user input preferences and font registration are handled separately in the original user's account.
+## 🗑️ How to Uninstall
 
-## Layout Source and Specification
+- **To remove the native driver**: Run **`Uninstall.cmd`** as administrator.
+- **To remove the predictive IME**: Run **`Uninstall-Predictive.cmd`** as administrator.
+- **To close the standalone app**: Right-click the **RH** tray icon &rarr; click **Exit**.
 
-Normal and Shift key positions follow [SIL Global’s published Hanifi Rohingya layout](https://github.com/keymanapp/keyboards/blob/master/release/h/hanifi_rohingya/source/hanifi_rohingya.kmn), with its [MIT attribution](keyboard/LICENSE.md) retained. That mapping is data only; this native implementation does not use its keyboard engine. The upstream source is preserved in `keyboard/hanifi_rohingya.reference.kmn` for comparison. “Published SIL layout” identifies the source; this project does not claim government certification. The Noto font is distributed under its [SIL Open Font License](assets/OFL.txt).
+---
 
-The Unicode repertoire is [U+10D00–U+10D3F](https://www.unicode.org/charts/PDF/U10D00.pdf). Native table structure and scan-code conventions were checked against the Windows SDK `kbd.h` and Microsoft's [keyboard layout sample](https://github.com/microsoft/Windows-driver-samples/tree/main/input/layout/kbdus). Windows input-list registration follows [Get-WinUserLanguageList](https://learn.microsoft.com/en-us/powershell/module/international/get-winuserlanguagelist) and [keyboard registry documentation](https://learn.microsoft.com/en-us/windows/win32/intl/using-registry-string-redirection).
+## 📁 Repository Structure
 
-## Author & Developer
+- `standalone/keyboard_app.c`: Native standalone Windows GUI app with low-level keyboard hook.
+- `bin/`: Precompiled binaries for ARM64, x64, and 32-bit x86 (`RohingyaKeyboard.exe`, `kbdroh.dll`, `rohime.dll`).
+- `native/`: Native Windows keyboard driver source (`keyboard.c`, `keyboard_abi.h`, `layout.inc`).
+- `ime/`: Windows Text Services Framework (TSF) predictive IME source (`service.cpp`, `predictor.h`, `keys.inc`, `model.inc`).
+- `windows/`: Installation & uninstallation scripts (`install.ps1`, `enable.ps1`, `install-predictive.ps1`, `Install.cmd`, etc.).
+- `dictionary/`: Dictionary source and word frequency model (`main_rhg.dict`, `model.json`, `model.js`).
+- `assets/`: App icons, author branding, install screenshots, and `NotoSansHanifiRohingya-Regular.ttf`.
+- `preview.html`: Offline browser practice app and virtual keyboard.
+- `build.py`: Master build pipeline for compilation and distribution packaging.
+- `dist/Hanifi-Rohingya-Windows-x64.zip`: Ready-to-use distribution package.
+
+---
+
+## 🛠️ Build from Source
+
+To compile the binaries from source:
+
+1. Install Python 3.9+ and portable [Zig](https://ziglang.org/download/).
+2. Run:
+   ```sh
+   python3 build.py
+   ```
+3. The clean package will be generated at `dist/Hanifi-Rohingya-Windows-x64.zip`.
+
+---
+
+## 👨‍💻 Author & Developer
 
 <p align="left">
   <img src="assets/author.jpg" alt="Ahkter Husin" width="120" style="border-radius: 50%;" />
@@ -131,3 +226,9 @@ The Unicode repertoire is [U+10D00–U+10D3F](https://www.unicode.org/charts/PDF
 * **GitHub**: [@arakaneserohingya](https://github.com/arakaneserohingya)
 * **Website**: [rohingyahub.org](https://rohingyahub.org)
 
+---
+
+## 📜 License
+
+- **Keyboard Layout & Code**: Distributed under the [MIT License](keyboard/LICENSE.md).
+- **Noto Sans Hanifi Rohingya Font**: Distributed under the [SIL Open Font License](assets/OFL.txt).
