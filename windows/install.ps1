@@ -169,21 +169,21 @@ try {
     if ($pe -lt 64 -or ($pe+6) -gt $bytes.Length -or [BitConverter]::ToUInt32($bytes,$pe) -ne 0x4550) {
         throw 'Invalid PE DLL header.'
     }
-    $machine = [BitConverter]::ToUInt16($bytes,$pe+4)
-    if ($arch -eq 'ARM64' -and $machine -ne 0xAA64) {
+    $peMachineType = [BitConverter]::ToUInt16($bytes,$pe+4)
+    if ($arch -eq 'ARM64' -and $peMachineType -ne 0xAA64) {
         $armSource = Join-Path $PSScriptRoot 'arm64\kbdroh.dll'
         if (Test-Path $armSource) {
             $source = $armSource
             $bytes = [IO.File]::ReadAllBytes($source)
             $pe = [BitConverter]::ToInt32($bytes,60)
-            $machine = [BitConverter]::ToUInt16($bytes,$pe+4)
+            $peMachineType = [BitConverter]::ToUInt16($bytes,$pe+4)
         }
-        if ($machine -ne 0xAA64) {
-            throw "Expected an ARM64 Windows DLL on this ARM64 system, found machine 0x$($machine.ToString('X4'))."
+        if ($peMachineType -ne 0xAA64) {
+            throw "Expected an ARM64 Windows DLL on this ARM64 system, found machine 0x$($peMachineType.ToString('X4'))."
         }
     }
-    if ($arch -eq 'AMD64' -and $machine -ne 0x8664) {
-        throw "Expected an x64 Windows DLL on this x64 system, found machine 0x$($machine.ToString('X4'))."
+    if ($arch -eq 'AMD64' -and $peMachineType -ne 0x8664) {
+        throw "Expected an x64 Windows DLL on this x64 system, found machine 0x$($peMachineType.ToString('X4'))."
     }
 
     try {
