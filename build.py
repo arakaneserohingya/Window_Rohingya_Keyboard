@@ -94,11 +94,25 @@ def compile_package(zig):
                     '-shared', '-static', '-Wall', '-Wextra', '-Wno-dll-attribute-on-redeclaration', '-o', str(out / 'arm64/rohime.dll'),
                     str(ROOT / 'ime/service.cpp'), str(ROOT / 'ime/exports.def'), '-lole32', '-loleaut32', '-luuid', '-luser32', '-lgdi32', '-ladvapi32'], check=True)
     
+    # Compile Standalone Background Executables (low-level hook for 100% universal typing across Windows)
+    (out / 'x86').mkdir(exist_ok=True)
+    subprocess.run([zig, 'cc', '-target', 'x86_64-windows-gnu', '-O2', '-Wl,--subsystem,windows',
+                    '-o', str(out / 'x64/RohingyaKeyboard.exe'), str(ROOT / 'standalone/keyboard_app.c'),
+                    '-lshell32', '-luser32', '-lgdi32', '-ladvapi32'], check=True)
+    subprocess.run([zig, 'cc', '-target', 'aarch64-windows-gnu', '-O2', '-Wl,--subsystem,windows',
+                    '-o', str(out / 'arm64/RohingyaKeyboard.exe'), str(ROOT / 'standalone/keyboard_app.c'),
+                    '-lshell32', '-luser32', '-lgdi32', '-ladvapi32'], check=True)
+    subprocess.run([zig, 'cc', '-target', 'x86-windows-gnu', '-O2', '-Wl,--subsystem,windows',
+                    '-o', str(out / 'x86/RohingyaKeyboard.exe'), str(ROOT / 'standalone/keyboard_app.c'),
+                    '-lshell32', '-luser32', '-lgdi32', '-ladvapi32'], check=True)
+    
     # Copy fresh binaries to bin/ backup
     (ROOT / 'bin/x64').mkdir(parents=True, exist_ok=True)
     (ROOT / 'bin/arm64').mkdir(parents=True, exist_ok=True)
+    (ROOT / 'bin/x86').mkdir(parents=True, exist_ok=True)
     for f in (out / 'x64').glob('*'): shutil.copy2(f, ROOT / 'bin/x64')
     for f in (out / 'arm64').glob('*'): shutil.copy2(f, ROOT / 'bin/arm64')
+    for f in (out / 'x86').glob('*'): shutil.copy2(f, ROOT / 'bin/x86')
 
 def package_dist(zig=None, compile_flag=False):
     dist = ROOT / 'dist'
@@ -109,9 +123,12 @@ def package_dist(zig=None, compile_flag=False):
     out.mkdir(parents=True, exist_ok=True)
     (out / 'x64').mkdir(exist_ok=True)
     (out / 'arm64').mkdir(exist_ok=True)
+    (out / 'x86').mkdir(exist_ok=True)
 
-    if compile_flag and zig and shutil.which(zig):
-        compile_package(zig)
+    zig_bin = zig if (zig and shutil.which(zig)) else (str(ROOT / 'tools/zig/zig') if (ROOT / 'tools/zig/zig').exists() else None)
+
+    if compile_flag and zig_bin:
+        compile_package(zig_bin)
     else:
         # Use prebuilt binaries from bin/
         if (ROOT / 'bin/x64').exists():
@@ -120,12 +137,22 @@ def package_dist(zig=None, compile_flag=False):
         if (ROOT / 'bin/arm64').exists():
             for f in (ROOT / 'bin/arm64').glob('*'):
                 shutil.copy2(f, out / 'arm64')
+        if (ROOT / 'bin/x86').exists():
+            for f in (ROOT / 'bin/x86').glob('*'):
+                shutil.copy2(f, out / 'x86')
 
-    # Copy default DLLs to root of package for direct access
+    # Copy default DLLs and standalone EXE to root of package for 1-click execution
     if (out / 'x64/kbdroh.dll').exists():
         shutil.copy2(out / 'x64/kbdroh.dll', out / 'kbdroh.dll')
     if (out / 'x64/rohime.dll').exists():
         shutil.copy2(out / 'x64/rohime.dll', out / 'rohime.dll')
+    if (out / 'arm64/RohingyaKeyboard.exe').exists():
+        shutil.copy2(out / 'arm64/RohingyaKeyboard.exe', out / 'RohingyaKeyboard-ARM64.exe')
+    if (out / 'x64/RohingyaKeyboard.exe').exists():
+        shutil.copy2(out / 'x64/RohingyaKeyboard.exe', out / 'RohingyaKeyboard.exe')
+        shutil.copy2(out / 'x64/RohingyaKeyboard.exe', out / 'RohingyaKeyboard-x64.exe')
+    if (out / 'x86/RohingyaKeyboard.exe').exists():
+        shutil.copy2(out / 'x86/RohingyaKeyboard.exe', out / 'RohingyaKeyboard-x86-32bit.exe')
 
     for name in ('install.ps1','uninstall.ps1','enable.ps1','test-windows.ps1','expected-layout.json','Install.cmd','Uninstall.cmd','install-predictive.ps1','Install-Predictive.cmd','Uninstall-Predictive.cmd'):
         shutil.copy2(ROOT / 'windows' / name, out / name)
@@ -151,5 +178,6 @@ if __name__ == '__main__':
     parser.add_argument('--zig',default='zig',help='Path to Zig executable')
     args=parser.parse_args()
     generate()
-    package_dist(zig=args.zig, compile_flag=args.compile)
+    package_dist(zig=args.zig, compile_flag=True)
+
 
