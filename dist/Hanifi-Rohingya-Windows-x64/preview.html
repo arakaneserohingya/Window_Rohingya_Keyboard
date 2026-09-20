@@ -1,11 +1,22 @@
 <!doctype html>
 <html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Hanifi Rohingya Keyboard</title>
+<link rel="icon" type="image/png" href="assets/icon.png">
 <style>
-@font-face{font-family:Rohingya;src:url('assets/NotoSansHanifiRohingya-Regular.ttf')}*{box-sizing:border-box}body{margin:0;background:#f3f6f5;color:#153c37;font:16px system-ui}main{max-width:1060px;margin:auto;padding:40px 20px}h1{font-size:34px;margin-bottom:10px}p{line-height:1.6}textarea{width:100%;min-height:220px;padding:22px;border:1px solid #8ca9a0;border-radius:12px;background:white;font:32px Rohingya, sans-serif;line-height:1.8}button,a{touch-action:manipulation}button{cursor:pointer;border:1px solid #abc5bb;border-radius:8px;background:white;color:#153c37;padding:12px;font:inherit}button:hover{background:#d9eee5}button:focus-visible,a:focus-visible{outline:3px solid #ad6900}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.row{display:flex;gap:5px;margin:5px 0}.key{flex:1;min-width:0;padding:7px 1px}.key small{display:block;font:12px system-ui;color:#587168}.glyph{display:block;font:27px Rohingya,sans-serif;min-height:44px}.keyboard{overflow:auto;padding:10px;background:#e5eeea;border-radius:12px}.rows{min-width:640px}a{color:#006852}#status{min-height:24px}.active{background:#b8e4d0}@media print{.toolbar{display:none}body{background:white}}
+@font-face{font-family:Rohingya;src:url('assets/NotoSansHanifiRohingya-Regular.ttf')}*{box-sizing:border-box}body{margin:0;background:#f3f6f5;color:#153c37;font:16px system-ui}main{max-width:1060px;margin:auto;padding:40px 20px}h1{font-size:34px;margin:0;display:flex;align-items:center;gap:14px}p{line-height:1.6}textarea{width:100%;min-height:220px;padding:22px;border:1px solid #8ca9a0;border-radius:12px;background:white;font:32px Rohingya, sans-serif;line-height:1.8}button,a{touch-action:manipulation}button{cursor:pointer;border:1px solid #abc5bb;border-radius:8px;background:white;color:#153c37;padding:12px;font:inherit}button:hover{background:#d9eee5}button:focus-visible,a:focus-visible{outline:3px solid #ad6900}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.row{display:flex;gap:5px;margin:5px 0}.key{flex:1;min-width:0;padding:7px 1px}.key small{display:block;font:12px system-ui;color:#587168}.glyph{display:block;font:27px Rohingya,sans-serif;min-height:44px}.keyboard{overflow:auto;padding:10px;background:#e5eeea;border-radius:12px}.rows{min-width:640px}a{color:#006852}#status{min-height:24px}.active{background:#b8e4d0}@media print{.toolbar{display:none}body{background:white}}
 .suggestions{display:flex;gap:8px;flex-wrap:wrap;min-height:58px;margin:12px 0}.suggestions button{font:24px Rohingya,sans-serif}
+.header-brand{display:flex;align-items:center;gap:16px;margin-bottom:12px}
+.header-logo{width:56px;height:56px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
 </style>
-<main><h1>Hanifi Rohingya Keyboard</h1><p>Type in the box or click the keys. Use Shift for tone marks and punctuation. Text flows right to left.</p>
+<main>
+<div class="header-brand">
+  <img src="assets/icon.png" alt="Hanifi Rohingya Logo" class="header-logo" />
+  <div>
+    <h1>Hanifi Rohingya Keyboard</h1>
+    <div style="font-size:14px;color:#587168;margin-top:2px">Native Windows Keyboard & Predictive IME</div>
+  </div>
+</div>
+<p>Type in the box or click the keys. Use Shift for tone marks and punctuation. Text flows right to left.</p>
 <textarea id="editor" dir="rtl" lang="rhg-Rohg" aria-label="Rohingya typing area" placeholder="𐴀 𐴁 𐴂" spellcheck="false"></textarea>
 <div id="suggestions" class="suggestions" role="group" aria-label="Word suggestions"></div>
 <div class="toolbar"><button id="prediction-toggle" aria-pressed="true">Suggestions: on</button><button id="shift" aria-pressed="false">Shift: off</button><button id="mode" aria-pressed="true">Rohingya: on</button><button id="copy">Copy text</button><button id="download">Save text</button><button id="backspace">Backspace</button></div>
