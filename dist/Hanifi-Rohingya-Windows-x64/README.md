@@ -34,6 +34,16 @@ Full Windows Text Services Framework IME (`rohime.dll`) providing **live word su
 
 The layout is registered under the official Rohingya (`rhg-Rohg` / `rhg`) language profile, displaying the **RHG** language indicator and **Hanifi Rohingya** name in the Windows taskbar and <kbd>Win</kbd>+<kbd>Space</kbd> language switcher. Existing language choices and keyboards are retained.
 
+### 📸 Installation Steps in Pictures
+
+| Step 1: Extract ZIP & Run `Install.cmd` | Step 2: Setup Dialog (Click Install) |
+| :---: | :---: |
+| <img src="assets/installs/1.png" alt="Step 1: Run Install.cmd" width="450" /> | <img src="assets/installs/2.png" alt="Step 2: Welcome Setup Dialog" width="450" /> |
+
+| Step 3: Approve Administrator Prompt | Step 4: Success & Ready to Type |
+| :---: | :---: |
+| <img src="assets/installs/3.png" alt="Step 3: UAC Prompt" width="450" /> | <img src="assets/installs/4.png" alt="Step 4: Installation Complete" width="450" /> |
+
 ## Remove
 
 * **To remove standard layout:** Switch to another keyboard and run **`Uninstall.cmd`**.
