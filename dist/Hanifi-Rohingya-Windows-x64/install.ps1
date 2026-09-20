@@ -207,7 +207,7 @@ try {
                 Copy-Item $Src $Dest -Force -ErrorAction Stop
                 Write-Host "Replaced active $(Split-Path $Dest -Leaf) with native $arch version."
             } catch {
-                Write-Warning "Could not replace $Dest: $_"
+                Write-Warning "Could not replace ${Dest} - $($_.Exception.Message)"
             }
         }
     }
