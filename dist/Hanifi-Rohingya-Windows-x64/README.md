@@ -92,15 +92,25 @@ To make your text align to the **right side** and flow naturally from **Right to
 
 ---
 
-## ⌨️ Visual Keyboard Layout Preview
+## ⌨️ Visual Keyboard Layout Previews
 
-### 🔹 Normal / Base Layer (Letters, Vowels & Digits)
+### 🪟 Windows Version
 
-![Hanifi Rohingya Keyboard - Normal Base Layer](assets/keyboard_layout.png)
+#### 🔹 Base Layer (Letters, Vowels & Digits)
+![Windows Hanifi Rohingya Keyboard - Base Layer](assets/keyboard_layout.png)
 
-### 🔸 Shift Layer (Tone Marks, Na-Khonna, Sakin & Punctuation)
+#### 🔸 Shift Layer (Tone Marks, Na-Khonna, Sakin & Punctuation)
+![Windows Hanifi Rohingya Keyboard - Shift Layer](assets/keyboard_shift_layout.png)
 
-![Hanifi Rohingya Keyboard - Shift Layer](assets/keyboard_shift_layout.png)
+---
+
+### 🍏 Apple macOS Version
+
+#### 🔹 Base Layer (Letters, Vowels & Digits)
+![macOS Hanifi Rohingya Keyboard - Base Layer](assets/keyboard_mac_layout.png)
+
+#### 🔸 Shift Layer (Tone Marks, Na-Khonna, Sakin & Punctuation)
+![macOS Hanifi Rohingya Keyboard - Shift Layer](assets/keyboard_mac_shift_layout.png)
 
 ---
 
