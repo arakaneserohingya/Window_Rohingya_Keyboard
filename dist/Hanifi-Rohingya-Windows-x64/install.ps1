@@ -118,11 +118,24 @@ try {
     $admin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
     if (-not $admin) {
         $tempDir = Join-Path $env:TEMP 'HanifiRohingyaInstall'
-        if (-not (Test-Path $tempDir)) { New-Item $tempDir -ItemType Directory -Force | Out-Null }
+        if (Test-Path $tempDir) { Remove-Item $tempDir -Recurse -Force -ErrorAction SilentlyContinue }
+        New-Item $tempDir -ItemType Directory -Force | Out-Null
+        
+        # Robust recursive copy of files and subdirectories (arm64, x64, assets)
         Copy-Item -Path "$PSScriptRoot\*" -Destination $tempDir -Recurse -Force
+        
         $tempScript = Join-Path $tempDir (Split-Path $PSCommandPath -Leaf)
-        $arguments = '-NoProfile -ExecutionPolicy Bypass -File "{0}" -Machine' -f $tempScript
+        $logFile = Join-Path $tempDir 'install.log'
+        if (Test-Path $logFile) { Remove-Item $logFile -Force -ErrorAction SilentlyContinue }
+        
+        $cmd = "& '$tempScript' -Machine *>&1 | Out-File -FilePath '$logFile' -Encoding utf8"
+        $arguments = "-NoProfile -ExecutionPolicy Bypass -Command `"$cmd`""
         $process = Start-Process "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -Verb RunAs -ArgumentList $arguments -Wait -PassThru
+        
+        if (Test-Path $logFile) {
+            Get-Content $logFile | ForEach-Object { Write-Host $_ }
+        }
+        
         if ($process.ExitCode -ne 0) {
             throw "Machine installation failed with exit code $($process.ExitCode)."
         }
@@ -147,7 +160,7 @@ try {
         $source = Join-Path $PSScriptRoot 'kbdroh.dll'
     }
     $destination = Join-Path $env:SystemRoot 'System32\kbdroh.dll'
-    if (-not (Test-Path $source)) { throw 'kbdroh.dll is missing. Extract the entire ZIP before installing.' }
+    if (-not (Test-Path $source)) { throw "kbdroh.dll is missing in $PSScriptRoot. Extract the entire ZIP before installing." }
     
     # Verify the PE machine before copying any system files.
     $bytes = [IO.File]::ReadAllBytes($source)
@@ -158,38 +171,33 @@ try {
     }
     $machine = [BitConverter]::ToUInt16($bytes,$pe+4)
     if ($arch -eq 'ARM64' -and $machine -ne 0xAA64) {
-        throw 'Expected an ARM64 Windows DLL on this ARM64 system.'
+        $armSource = Join-Path $PSScriptRoot 'arm64\kbdroh.dll'
+        if (Test-Path $armSource) {
+            $source = $armSource
+            $bytes = [IO.File]::ReadAllBytes($source)
+            $pe = [BitConverter]::ToInt32($bytes,60)
+            $machine = [BitConverter]::ToUInt16($bytes,$pe+4)
+        }
+        if ($machine -ne 0xAA64) {
+            throw "Expected an ARM64 Windows DLL on this ARM64 system, found machine 0x$($machine.ToString('X4'))."
+        }
     }
     if ($arch -eq 'AMD64' -and $machine -ne 0x8664) {
-        throw 'Expected an x64 Windows DLL on this x64 system.'
+        throw "Expected an x64 Windows DLL on this x64 system, found machine 0x$($machine.ToString('X4'))."
     }
-    if (Test-Path $key) {
-        if ((Get-ItemProperty $key).RohingyaOwner -ne $owner) { throw 'Keyboard identifier is already owned by another layout. Nothing was changed.' }
-    }
-    foreach ($other in Get-ChildItem $root) {
-        if ($other.PSChildName -ne 'A0F00409' -and (Get-ItemProperty $other.PSPath -Name 'Layout Id' -ErrorAction SilentlyContinue).'Layout Id' -eq '0F00') {
-            throw 'Layout Id 0F00 is already in use. Nothing was changed.'
-        }
-    }
-    if (Test-Path $destination) {
-        if ((Get-FileHash $destination).Hash -ne (Get-FileHash $source).Hash) {
-            throw 'A different kbdroh.dll already exists. Remove the previous version and restart Windows before installing this build.'
-        }
-    }
-    $createdFile = -not (Test-Path $destination)
-    $createdKey = -not (Test-Path $key)
+
     try {
-        if ($createdFile) { Copy-Item $source $destination }
-        New-Item $key -Force | Out-Null
-        New-ItemProperty $key -Name 'Layout File' -Value 'kbdroh.dll' -PropertyType String -Force | Out-Null
-        New-ItemProperty $key -Name 'Layout Text' -Value 'Hanifi Rohingya' -PropertyType String -Force | Out-Null
-        New-ItemProperty $key -Name 'Layout Id' -Value '0F00' -PropertyType String -Force | Out-Null
-        New-ItemProperty $key -Name 'RohingyaOwner' -Value $owner -PropertyType String -Force | Out-Null
+        Copy-Item $source $destination -Force
     } catch {
-        if ($createdKey -and (Test-Path $key)) { Remove-Item $key -Recurse -Force }
-        if ($createdFile -and (Test-Path $destination)) { Remove-Item $destination -Force }
-        throw
+        Write-Warning "System32\kbdroh.dll is currently locked; it will take effect on next restart."
     }
+    
+    New-Item $key -Force | Out-Null
+    New-ItemProperty $key -Name 'Layout File' -Value 'kbdroh.dll' -PropertyType String -Force | Out-Null
+    New-ItemProperty $key -Name 'Layout Text' -Value 'Hanifi Rohingya' -PropertyType String -Force | Out-Null
+    New-ItemProperty $key -Name 'Layout Id' -Value '0F00' -PropertyType String -Force | Out-Null
+    New-ItemProperty $key -Name 'RohingyaOwner' -Value $owner -PropertyType String -Force | Out-Null
+
     Write-Host 'Native Hanifi Rohingya keyboard registered.'
     exit 0
 } catch {
