@@ -94,9 +94,38 @@ def compile_package(zig):
                     '-shared', '-static', '-Wall', '-Wextra', '-Wno-dll-attribute-on-redeclaration', '-o', str(out / 'arm64/rohime.dll'),
                     str(ROOT / 'ime/service.cpp'), str(ROOT / 'ime/exports.def'), '-lole32', '-loleaut32', '-luuid', '-luser32', '-lgdi32', '-ladvapi32'], check=True)
     
-    # Copy default x64 DLLs to root of package for backward compatibility
-    shutil.copy2(out / 'x64/kbdroh.dll', out / 'kbdroh.dll')
-    shutil.copy2(out / 'x64/rohime.dll', out / 'rohime.dll')
+    # Copy fresh binaries to bin/ backup
+    (ROOT / 'bin/x64').mkdir(parents=True, exist_ok=True)
+    (ROOT / 'bin/arm64').mkdir(parents=True, exist_ok=True)
+    for f in (out / 'x64').glob('*'): shutil.copy2(f, ROOT / 'bin/x64')
+    for f in (out / 'arm64').glob('*'): shutil.copy2(f, ROOT / 'bin/arm64')
+
+def package_dist(zig=None, compile_flag=False):
+    dist = ROOT / 'dist'
+    if dist.exists():
+        shutil.rmtree(dist)
+    
+    out = dist / 'Hanifi-Rohingya-Windows-x64'
+    out.mkdir(parents=True, exist_ok=True)
+    (out / 'x64').mkdir(exist_ok=True)
+    (out / 'arm64').mkdir(exist_ok=True)
+
+    if compile_flag and zig and shutil.which(zig):
+        compile_package(zig)
+    else:
+        # Use prebuilt binaries from bin/
+        if (ROOT / 'bin/x64').exists():
+            for f in (ROOT / 'bin/x64').glob('*'):
+                shutil.copy2(f, out / 'x64')
+        if (ROOT / 'bin/arm64').exists():
+            for f in (ROOT / 'bin/arm64').glob('*'):
+                shutil.copy2(f, out / 'arm64')
+
+    # Copy default DLLs to root of package for direct access
+    if (out / 'x64/kbdroh.dll').exists():
+        shutil.copy2(out / 'x64/kbdroh.dll', out / 'kbdroh.dll')
+    if (out / 'x64/rohime.dll').exists():
+        shutil.copy2(out / 'x64/rohime.dll', out / 'rohime.dll')
 
     for name in ('install.ps1','uninstall.ps1','enable.ps1','test-windows.ps1','expected-layout.json','Install.cmd','Uninstall.cmd','install-predictive.ps1','Install-Predictive.cmd','Uninstall-Predictive.cmd'):
         shutil.copy2(ROOT / 'windows' / name, out / name)
@@ -108,17 +137,19 @@ def compile_package(zig):
         shutil.copy2(ROOT / name, out / name)
     shutil.copytree(ROOT / 'assets', out / 'assets', dirs_exist_ok=True)
     shutil.copytree(ROOT / 'dictionary', out / 'dictionary', dirs_exist_ok=True)
-    archive = ROOT / 'dist/Hanifi-Rohingya-Windows-x64.zip'
+    
+    archive = dist / 'Hanifi-Rohingya-Windows-x64.zip'
     with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED) as z:
         for path in sorted(out.rglob('*')):
-            if path.is_file(): z.write(path, f'{out.name}/{path.relative_to(out).as_posix()}')
-    print(f'Built {archive}')
+            if path.is_file() and not path.name.startswith('.DS_Store'):
+                z.write(path, f'{out.name}/{path.relative_to(out).as_posix()}')
+    print(f'Successfully built clean distribution at {archive}')
 
 if __name__ == '__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--compile',action='store_true',help='Compile the x64 Windows DLL and package it')
-    parser.add_argument('--zig',default='zig',help='Path to Zig 0.14.1 executable')
+    parser.add_argument('--compile',action='store_true',help='Compile the Windows DLLs with Zig')
+    parser.add_argument('--zig',default='zig',help='Path to Zig executable')
     args=parser.parse_args()
     generate()
-    if args.compile:
-        compile_package(args.zig)
+    package_dist(zig=args.zig, compile_flag=args.compile)
+
