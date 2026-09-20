@@ -9,10 +9,17 @@ try {
     }
     $admin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
     if (-not $admin) {
-        $arguments = '-NoProfile -ExecutionPolicy Bypass -File "{0}"' -f $PSCommandPath
+        $tempDir = Join-Path $env:TEMP 'HanifiRohingyaInstall'
+        if (-not (Test-Path $tempDir)) { New-Item $tempDir -ItemType Directory -Force | Out-Null }
+        Copy-Item -Path "$PSScriptRoot\*" -Destination $tempDir -Recurse -Force
+        $tempScript = Join-Path $tempDir (Split-Path $PSCommandPath -Leaf)
+        $arguments = '-NoProfile -ExecutionPolicy Bypass -File "{0}"' -f $tempScript
         if ($Remove) { $arguments += ' -Remove' }
         $process = Start-Process "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -Verb RunAs -ArgumentList $arguments -Wait -PassThru
-        exit $process.ExitCode
+        if ($process.ExitCode -ne 0) {
+            throw "Predictive installation failed with exit code $($process.ExitCode)."
+        }
+        exit 0
     }
     $folder = Join-Path $env:ProgramFiles 'Hanifi Rohingya Predictive'
     $destination = Join-Path $folder 'rohime.dll'

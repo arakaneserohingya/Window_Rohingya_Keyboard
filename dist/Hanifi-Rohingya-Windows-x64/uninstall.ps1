@@ -5,9 +5,16 @@ try {
     if (-not [Environment]::Is64BitProcess) { throw 'Use 64-bit Windows PowerShell.' }
     $admin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
     if (-not $admin) {
-        $arguments = '-NoProfile -ExecutionPolicy Bypass -File "{0}" -Machine' -f $PSCommandPath
+        $tempDir = Join-Path $env:TEMP 'HanifiRohingyaInstall'
+        if (-not (Test-Path $tempDir)) { New-Item $tempDir -ItemType Directory -Force | Out-Null }
+        Copy-Item -Path "$PSScriptRoot\*" -Destination $tempDir -Recurse -Force
+        $tempScript = Join-Path $tempDir (Split-Path $PSCommandPath -Leaf)
+        $arguments = '-NoProfile -ExecutionPolicy Bypass -File "{0}" -Machine' -f $tempScript
         $process = Start-Process "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -Verb RunAs -ArgumentList $arguments -Wait -PassThru
-        exit $process.ExitCode
+        if ($process.ExitCode -ne 0) {
+            throw "Uninstallation failed with exit code $($process.ExitCode)."
+        }
+        exit 0
     }
     $key = 'HKLM:\SYSTEM\CurrentControlSet\Control\Keyboard Layouts\A0F00409'
     if (-not (Test-Path $key)) { Write-Host 'Keyboard is not registered.'; exit 0 }
