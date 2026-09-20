@@ -101,9 +101,9 @@ try {
     }
 
     if (-not [Environment]::Is64BitProcess) { throw 'Run with 64-bit Windows PowerShell.' }
-    $osArch = (Get-CimInstance Win32_OperatingSystem).OSArchitecture
-    if ($env:PROCESSOR_ARCHITECTURE -ne 'AMD64' -or $osArch -notmatch '64') {
-        throw 'This package supports Intel/AMD x64 Windows only; ARM64 and 32-bit Windows are not supported.'
+    $arch = $env:PROCESSOR_ARCHITECTURE
+    if ($arch -ne 'AMD64' -and $arch -ne 'ARM64') {
+        throw 'This package supports 64-bit Windows (x64 and ARM64) only; 32-bit Windows is not supported.'
     }
     $admin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
     if (-not $admin) {
@@ -114,14 +114,38 @@ try {
     $key = 'HKLM:\SYSTEM\CurrentControlSet\Control\Keyboard Layouts\A0F00409'
     $root = Split-Path $key
     $owner = 'HanifiRohingya.Native.1'
-    $source = Join-Path $PSScriptRoot 'kbdroh.dll'
+    
+    # Pick the appropriate DLL for the system architecture (ARM64 vs x64)
+    $source = $null
+    if ($arch -eq 'ARM64') {
+        if (Test-Path (Join-Path $PSScriptRoot 'arm64\kbdroh.dll')) {
+            $source = Join-Path $PSScriptRoot 'arm64\kbdroh.dll'
+        }
+    } elseif ($arch -eq 'AMD64') {
+        if (Test-Path (Join-Path $PSScriptRoot 'x64\kbdroh.dll')) {
+            $source = Join-Path $PSScriptRoot 'x64\kbdroh.dll'
+        }
+    }
+    if (-not $source -or (-not (Test-Path $source))) {
+        $source = Join-Path $PSScriptRoot 'kbdroh.dll'
+    }
     $destination = Join-Path $env:SystemRoot 'System32\kbdroh.dll'
     if (-not (Test-Path $source)) { throw 'kbdroh.dll is missing. Extract the entire ZIP before installing.' }
+    
     # Verify the PE machine before copying any system files.
     $bytes = [IO.File]::ReadAllBytes($source)
     if ($bytes.Length -lt 64) { throw 'Invalid DLL.' }
     $pe = [BitConverter]::ToInt32($bytes,60)
-    if ($pe -lt 64 -or ($pe+6) -gt $bytes.Length -or [BitConverter]::ToUInt32($bytes,$pe) -ne 0x4550 -or [BitConverter]::ToUInt16($bytes,$pe+4) -ne 0x8664) { throw 'Expected an x64 Windows DLL.' }
+    if ($pe -lt 64 -or ($pe+6) -gt $bytes.Length -or [BitConverter]::ToUInt32($bytes,$pe) -ne 0x4550) {
+        throw 'Invalid PE DLL header.'
+    }
+    $machine = [BitConverter]::ToUInt16($bytes,$pe+4)
+    if ($arch -eq 'ARM64' -and $machine -ne 0xAA64) {
+        throw 'Expected an ARM64 Windows DLL on this ARM64 system.'
+    }
+    if ($arch -eq 'AMD64' -and $machine -ne 0x8664) {
+        throw 'Expected an x64 Windows DLL on this x64 system.'
+    }
     if (Test-Path $key) {
         if ((Get-ItemProperty $key).RohingyaOwner -ne $owner) { throw 'Keyboard identifier is already owned by another layout. Nothing was changed.' }
     }

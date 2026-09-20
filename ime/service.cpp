@@ -1,6 +1,7 @@
 #define UNICODE
 #define _UNICODE
 #include <windows.h>
+#include <initguid.h>
 #include <msctf.h>
 #include <inputscope.h>
 #include <oleauto.h>
@@ -11,6 +12,8 @@
 // Separate identity from the basic kbdroh.dll keyboard.
 static const CLSID CLSID_Rohingya = {0x7dd2fb83,0xbcd2,0x4bf2,{0xb9,0x37,0xb1,0xe9,0x06,0x28,0x36,0xa1}};
 static const GUID PROFILE_Rohingya = {0x4c379be1,0xf64e,0x493a,{0x92,0xcd,0x67,0x85,0x8a,0x74,0x23,0xbe}};
+static const GUID K_GUID_PROP_INPUTSCOPE = {0x1713dd5a,0x68e7,0x4a5b,{0x9a,0xf6,0x59,0x2a,0x59,0x5c,0x77,0x8d}};
+static const IID K_IID_ITfInputScope = {0xfde1e4b9,0x2e07,0x4e2d,{0xa6,0x96,0x25,0x49,0xba,0x31,0x56,0x8d}};
 static HINSTANCE module;
 static LONG objects = 0;
 static const wchar_t *windowClass = L"HanifiRohingyaCandidates";
@@ -42,12 +45,12 @@ static bool disabled(ITfContext *ctx) {
 }
 static bool sensitive(ITfContext *ctx, TfEditCookie cookie, ITfRange *range) {
     Com<ITfProperty> prop;
-    if (FAILED(ctx->GetProperty(GUID_PROP_INPUTSCOPE, prop.out()))) return false;
+    if (FAILED(ctx->GetProperty(K_GUID_PROP_INPUTSCOPE, prop.out()))) return false;
     VARIANT v; VariantInit(&v);
     bool result = false;
     if (SUCCEEDED(prop->GetValue(cookie, range, &v)) && v.vt == VT_UNKNOWN && v.punkVal) {
         Com<ITfInputScope> scope;
-        if (SUCCEEDED(v.punkVal->QueryInterface(IID_ITfInputScope, reinterpret_cast<void **>(scope.out())))) {
+        if (SUCCEEDED(v.punkVal->QueryInterface(K_IID_ITfInputScope, reinterpret_cast<void **>(scope.out())))) {
             InputScope *scopes = nullptr; UINT count = 0;
             if (SUCCEEDED(scope->GetInputScopes(&scopes, &count))) {
                 for (UINT i = 0; i < count; ++i)

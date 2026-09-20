@@ -1,9 +1,9 @@
 # Run as the person who will type, not as a different administrator account.
 [CmdletBinding()]
-param([switch]$Remove)
+param([switch]$Remove, [switch]$Predictive)
 $ErrorActionPreference = 'Stop'
 try {
-    $tip = '0409:A0F00409'
+    $tip = if ($Predictive) { '0409:{7DD2FB83-BCD2-4BF2-B937-B1E9062836A1}{4C379BE1-F64E-493A-92CD-67858A7423BE}' } else { '0409:A0F00409' }
     $languages = Get-WinUserLanguageList
     if ($Remove) {
         foreach ($language in $languages) {
@@ -16,7 +16,8 @@ try {
             }
         }
     } else {
-        if (-not (Test-Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Keyboard Layouts\A0F00409')) { throw 'Run Install.cmd first.' }
+        $registration = if ($Predictive) { 'HKLM:\Software\Classes\CLSID\{7DD2FB83-BCD2-4BF2-B937-B1E9062836A1}\InprocServer32' } else { 'HKLM:\SYSTEM\CurrentControlSet\Control\Keyboard Layouts\A0F00409' }
+        if (-not (Test-Path $registration)) { throw 'Run the matching Install command first.' }
         $english = $languages | Where-Object LanguageTag -eq 'en-US' | Select-Object -First 1
         if (-not $english) {
             $english = (New-WinUserLanguageList 'en-US')[0]
@@ -36,6 +37,7 @@ try {
     }
     Set-WinUserLanguageList $languages -Force
     if ($Remove) { Write-Host 'Keyboard removed from your input list.' }
+    elseif ($Predictive) { Write-Host 'Sign out and back in, then select Hanifi Rohingya Predictive with Win+Space. Click suggestions or press F1-F5; Escape dismisses them.' }
     else { Write-Host 'Sign out and back in, then use Win+Space to select Hanifi Rohingya. Choose Noto Sans Hanifi Rohingya in your document.' }
     exit 0
 } catch {

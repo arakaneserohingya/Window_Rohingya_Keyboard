@@ -2,7 +2,7 @@
 
 Your own Windows keyboard layout: **no Keyman, no background application, and no runtime dependency**. The package contains a native `kbdroh.dll`, installation/removal scripts, and the Noto Sans Hanifi Rohingya font.
 
-**Target: Windows 10/11 on Intel/AMD x64.** ARM64 and 32-bit Windows are not supported by this build. The DLL was cross-compiled on macOS; installation and real Windows typing still need Windows acceptance testing.
+**Target: Windows 10/11 on 64-bit platforms (Intel/AMD x64 and ARM64).** Supports both native PC hardware and Windows 11 running on Apple Silicon VMs (Parallels/VMware) as well as Snapdragon PCs. 32-bit Windows is not supported.
 
 ## Install
 

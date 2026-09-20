@@ -73,28 +73,45 @@ def generate():
     (ROOT/'windows/expected-layout.json').write_text(json.dumps(native_entries(),indent=2)+'\n')
 
 def compile_package(zig):
-    out=ROOT/'dist/Hanifi-Rohingya-Windows-x64'
-    out.mkdir(parents=True,exist_ok=True)
-    subprocess.run([zig,'build-lib','-target','x86_64-windows-msvc','-dynamic','-fentry=DllMainCRTStartup',
-                    '-O','ReleaseSmall','-femit-bin='+str(out/'kbdroh.dll'),
-                    '-cflags','-std=c11','-Wall','-Wextra','-Werror','--',str(ROOT/'native/keyboard.c')],check=True)
+    out = ROOT / 'dist/Hanifi-Rohingya-Windows-x64'
+    out.mkdir(parents=True, exist_ok=True)
+    (out / 'x64').mkdir(exist_ok=True)
+    (out / 'arm64').mkdir(exist_ok=True)
+    
+    # Compile x64 layout DLL and predictive IME
+    subprocess.run([zig, 'build-lib', '-target', 'x86_64-windows-msvc', '-dynamic', '-fentry=DllMainCRTStartup',
+                    '-O', 'ReleaseSmall', '-femit-bin=' + str(out / 'x64/kbdroh.dll'),
+                    '-cflags', '-std=c11', '-Wall', '-Wextra', '-Werror', '--', str(ROOT / 'native/keyboard.c')], check=True)
     subprocess.run([zig, 'c++', '-target', 'x86_64-windows-gnu', '-std=c++17', '-O2',
-                    '-shared', '-static', '-Wall', '-Wextra', '-Werror', '-o', str(out/'rohime.dll'),
-                    str(ROOT/'ime/service.cpp'), str(ROOT/'ime/exports.def'), '-lole32', '-loleaut32', '-luuid', '-luser32', '-lgdi32', '-ladvapi32'], check=True)
+                    '-shared', '-static', '-Wall', '-Wextra', '-Wno-dll-attribute-on-redeclaration', '-o', str(out / 'x64/rohime.dll'),
+                    str(ROOT / 'ime/service.cpp'), str(ROOT / 'ime/exports.def'), '-lole32', '-loleaut32', '-luuid', '-luser32', '-lgdi32', '-ladvapi32'], check=True)
+    
+    # Compile ARM64 layout DLL and predictive IME (for Apple Silicon VMs & Snapdragon Windows)
+    subprocess.run([zig, 'build-lib', '-target', 'aarch64-windows-msvc', '-dynamic', '-fentry=DllMainCRTStartup',
+                    '-O', 'ReleaseSmall', '-femit-bin=' + str(out / 'arm64/kbdroh.dll'),
+                    '-cflags', '-std=c11', '-Wall', '-Wextra', '-Werror', '--', str(ROOT / 'native/keyboard.c')], check=True)
+    subprocess.run([zig, 'c++', '-target', 'aarch64-windows-gnu', '-std=c++17', '-O2',
+                    '-shared', '-static', '-Wall', '-Wextra', '-Wno-dll-attribute-on-redeclaration', '-o', str(out / 'arm64/rohime.dll'),
+                    str(ROOT / 'ime/service.cpp'), str(ROOT / 'ime/exports.def'), '-lole32', '-loleaut32', '-luuid', '-luser32', '-lgdi32', '-ladvapi32'], check=True)
+    
+    # Copy default x64 DLLs to root of package for backward compatibility
+    shutil.copy2(out / 'x64/kbdroh.dll', out / 'kbdroh.dll')
+    shutil.copy2(out / 'x64/rohime.dll', out / 'rohime.dll')
+
     for name in ('install.ps1','uninstall.ps1','enable.ps1','test-windows.ps1','expected-layout.json','Install.cmd','Uninstall.cmd','install-predictive.ps1','Install-Predictive.cmd','Uninstall-Predictive.cmd'):
-        shutil.copy2(ROOT/'windows'/name,out/name)
-    shutil.copy2(ROOT/'assets/NotoSansHanifiRohingya-Regular.ttf',out)
-    shutil.copy2(ROOT/'assets/OFL.txt',out)
-    shutil.copy2(ROOT/'keyboard/LICENSE.md',out/'LAYOUT-LICENSE.txt')
-    shutil.copy2(ROOT/'README.md',out/'README.md')
+        shutil.copy2(ROOT / 'windows' / name, out / name)
+    shutil.copy2(ROOT / 'assets/NotoSansHanifiRohingya-Regular.ttf', out)
+    shutil.copy2(ROOT / 'assets/OFL.txt', out)
+    shutil.copy2(ROOT / 'keyboard/LICENSE.md', out / 'LAYOUT-LICENSE.txt')
+    shutil.copy2(ROOT / 'README.md', out / 'README.md')
     for name in ('preview.html', 'preview.js', 'layout.js', 'prediction.js', 'preview-prediction.js'):
-        shutil.copy2(ROOT/name, out/name)
-    shutil.copytree(ROOT/'assets', out/'assets', dirs_exist_ok=True)
-    shutil.copytree(ROOT/'dictionary', out/'dictionary', dirs_exist_ok=True)
-    archive=ROOT/'dist/Hanifi-Rohingya-Windows-x64.zip'
-    with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as z:
+        shutil.copy2(ROOT / name, out / name)
+    shutil.copytree(ROOT / 'assets', out / 'assets', dirs_exist_ok=True)
+    shutil.copytree(ROOT / 'dictionary', out / 'dictionary', dirs_exist_ok=True)
+    archive = ROOT / 'dist/Hanifi-Rohingya-Windows-x64.zip'
+    with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED) as z:
         for path in sorted(out.rglob('*')):
-            if path.is_file(): z.write(path,f'{out.name}/{path.relative_to(out).as_posix()}')
+            if path.is_file(): z.write(path, f'{out.name}/{path.relative_to(out).as_posix()}')
     print(f'Built {archive}')
 
 if __name__ == '__main__':
