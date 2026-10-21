@@ -24,7 +24,7 @@ Choose the method that works best for you:
 ### 🟢 Method 1: Instant Standalone App (Easiest & Zero Setup)
 *No installation, no administrator rights, and no restarting required.*
 
-1. Download and extract [`Hanifi-Rohingya-Windows-x64.zip`](dist/Hanifi-Rohingya-Windows-x64.zip).
+1. Download and extract [`Hanifi-Rohingya-Windows-x64.zip`](https://github.com/arakaneserohingya/Window_Rohingya_Keyboard/releases/latest/download/Hanifi-Rohingya-Windows-x64.zip) from the [latest release](https://github.com/arakaneserohingya/Window_Rohingya_Keyboard/releases/latest).
 2. Inside the folder, simply double-click:
    - **`RohingyaKeyboard-ARM64.exe`** (If you are on Windows 11 in a Mac Parallels Desktop VM or Snapdragon PC)
    - **`RohingyaKeyboard.exe`** / **`RohingyaKeyboard-x64.exe`** (If you are on standard 64-bit Intel/AMD Windows)
@@ -213,7 +213,7 @@ You can open [`preview.html`](preview.html) in your web browser (Google Chrome, 
 ## 📁 Repository Structure
 
 - `standalone/keyboard_app.c`: Native standalone Windows GUI app with low-level keyboard hook.
-- `bin/`: Precompiled binaries for ARM64, x64, and 32-bit x86 (`RohingyaKeyboard.exe`, `kbdroh.dll`, `rohime.dll`).
+- `bin/`: Local build output for ARM64, x64, and 32-bit x86 (`RohingyaKeyboard.exe`, `kbdroh.dll`, `rohime.dll`). Not committed; prebuilt binaries are published on [GitHub Releases](https://github.com/arakaneserohingya/Window_Rohingya_Keyboard/releases).
 - `native/`: Native Windows keyboard driver source (`keyboard.c`, `keyboard_abi.h`, `layout.inc`).
 - `ime/`: Windows Text Services Framework (TSF) predictive IME source (`service.cpp`, `predictor.h`, `keys.inc`, `model.inc`).
 - `windows/`: Installation & uninstallation scripts (`install.ps1`, `enable.ps1`, `install-predictive.ps1`, `Install.cmd`, etc.).
@@ -221,7 +221,7 @@ You can open [`preview.html`](preview.html) in your web browser (Google Chrome, 
 - `assets/`: App icons, author branding, install screenshots, and `NotoSansHanifiRohingya-Regular.ttf`.
 - `preview.html`: Offline browser practice app and virtual keyboard.
 - `build.py`: Master build pipeline for compilation and distribution packaging.
-- `dist/Hanifi-Rohingya-Windows-x64.zip`: Ready-to-use distribution package.
+- `dist/Hanifi-Rohingya-Windows-x64.zip`: Distribution package created by `build.py`. Not committed; download it from [GitHub Releases](https://github.com/arakaneserohingya/Window_Rohingya_Keyboard/releases).
 
 ---
 

@@ -141,6 +141,15 @@ def package_dist(zig=None, compile_flag=False):
             for f in (ROOT / 'bin/x86').glob('*'):
                 shutil.copy2(f, out / 'x86')
 
+    # bin/ is not committed, so a fresh clone without Zig has no binaries to package.
+    required = ('x64/kbdroh.dll', 'x64/rohime.dll', 'x64/RohingyaKeyboard.exe', 'arm64/kbdroh.dll',
+                'arm64/rohime.dll', 'arm64/RohingyaKeyboard.exe', 'x86/RohingyaKeyboard.exe')
+    missing = [name for name in required if not (out / name).exists()]
+    if missing:
+        raise SystemExit('Missing Windows binaries: ' + ', '.join(missing) +
+                         '\nInstall Zig at tools/zig/zig (or pass --zig) to compile them, '
+                         'or download the prebuilt package from GitHub Releases.')
+
     # Copy default DLLs and standalone EXE to root of package for 1-click execution
     if (out / 'x64/kbdroh.dll').exists():
         shutil.copy2(out / 'x64/kbdroh.dll', out / 'kbdroh.dll')

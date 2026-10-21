@@ -47,6 +47,7 @@ class KeyboardTests(unittest.TestCase):
                     self.assertEqual(bytes([hi & 255, hi >> 8, lo & 255, lo >> 8]).decode('utf-16-le'), chr(cp))
         self.assertIn('{0x56,0,{WCH_LGTR,WCH_NONE,0x0016,0x0016}}', native)
 
+    @unittest.skipUnless((ROOT/'dist/Hanifi-Rohingya-Windows-x64.zip').exists(), 'package not built; run python3 build.py')
     def test_native_package(self):
         prefix = 'Hanifi-Rohingya-Windows-x64/'
         with zipfile.ZipFile(ROOT/'dist/Hanifi-Rohingya-Windows-x64.zip') as package:
